@@ -17,7 +17,8 @@ class SinatraWorker
 
     puts "<== HERE ==>"
     puts resp
-    puts JSON.parse(resp.body)
+    results = JSON.parse(resp.body).dig("results")
+    results.each { |r| puts(r.dig("name")) }
     puts "<== HERE ==>"
 
     $redis.lpush("sinkiq-example-messages", "Hallo, world!")
@@ -25,5 +26,7 @@ class SinatraWorker
 end
 
 post "/msg" do
+  puts "<== ENDPOINT HIT: START ==>"
   SinatraWorker.perform_async
+  puts "<== ENDPOINT HIT:  END  ==>"
 end
