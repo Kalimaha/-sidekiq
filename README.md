@@ -1,1 +1,3 @@
-# -sidekiq
+# μ-sidekiq
+
+## Redis
